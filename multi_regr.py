@@ -41,9 +41,12 @@ class MRCV:
 			#	del data[removement]
 
 			model = self.model(self.data.ix[train_index, 0], self.data.ix[train_index, 1:]).fit()
-			self.y_test_pred = pd.concat([self.y_test_pred, pd.DataFrame(model.predict(self.data.ix[test_index, 1:]))], ignore_index = True)
-			rmse = root_mean_squared_error(self.data.ix[test_index, 0], self.y_test_pred.ix[test_index])
-			r2_adj = r2_adj_score(self.data.ix[test_index, 0], self.y_test_pred.ix[test_index], len(data.columns[1:]))
+			self.y_test_pred = pd.concat([self.y_test_pred, \
+				pd.DataFrame(model.predict(self.data.ix[test_index, 1:]))], ignore_index = True)
+			rmse = root_mean_squared_error(self.data.ix[test_index, 0], \
+				self.y_test_pred.ix[test_index])
+			r2_adj = r2_adj_score(self.data.ix[test_index, 0], \
+				self.y_test_pred.ix[test_index], len(data.columns[1:]))
 			print(model.summary())
 			print(year+counter*2,"年:", r2_adj, rmse, end = "\n\n\n")
 			counter += 1
